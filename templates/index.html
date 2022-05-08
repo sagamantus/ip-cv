@@ -11,15 +11,19 @@
 <body class="is-dark has-background-dark">
     <div class="container is-widescreen has-text-centered">
         <h2 class="title is-1 has-text-light">Kamera</h2>
-        <form method="post" action="{{ url_for('tasks') }}">
-            <input class="button is-white is-outlined" type="submit" value="Start/Stop" name="stop" />
-            <input class="button is-white is-outlined" type="submit" value="Capture" name="click" />
-            <input class="button is-white is-outlined" type="submit" value="Grey" name="grey" />
-            <input class="button is-white is-outlined" type="submit" value="Negative" name="neg" />
-            <input class="button is-white is-outlined" type="submit" value="Face Detection" name="face" />
-            <input class="button is-white is-outlined" type="submit" value="Record" name="rec" />
+        <form method="post" action="{{ url_for('tasks') }}" class="content">
+            <p>
+                <input class="button is-white is-outlined" type="submit" value="Start/Stop" name="stop" />
+                <input class="button is-white is-outlined" type="submit" value="Capture" name="click" />
+                <input class="button is-white is-outlined" type="submit" value="Grey" name="grey" />
+                <input class="button is-white is-outlined" type="submit" value="Negative" name="neg" />
+            </p>
+            <p>
+                <input class="button is-white is-outlined" type="submit" value="Face Detection" name="face" />
+                <input class="button is-white is-outlined" type="submit" value="Eyes Detection" name="eyes" />
+                <input class="button is-white is-outlined" type="submit" value="Record" name="rec" />
+            </p>
         </form>
-        <br />
         <img src="{{ url_for('video_feed') }}" height="80%" />
         <div class="container is-half has-text-light">
             <h3 class="title is-3 has-text-light">Instructions:</h3>

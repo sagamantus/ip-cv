@@ -5,11 +5,12 @@ import os, sys
 import numpy as np
 from threading import Thread
 
-global capture, rec_frame, grey, switch, neg, face, rec, out 
+global capture, rec_frame, grey, switch, neg, face, eyes, rec, out 
 capture = 0
 grey = 0
 neg = 0
 face = 0
+eyes = 0
 switch = 1
 rec = 0
 
@@ -19,6 +20,7 @@ except OSError as error: pass
 
 # Loading pretrained face detection model    
 faceClass = cv2.CascadeClassifier('assets/haarcascade_frontalface_default.xml')
+eyeClass = cv2.CascadeClassifier('assets/haarcascade_eye.xml')
 
 # Instatiate flask app  
 app = Flask(__name__, template_folder='./templates')
@@ -38,10 +40,22 @@ def detect_face(frame):
     global faceClass
 
     gray = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)
-    face = faceClass.detectMultiScale(gray , 1.45 , 5)
+    face = faceClass.detectMultiScale(gray , 1.5 , 5)
 
     for (x , y , w , h) in face:
-        cv2.rectangle(frame , (x , y) , (x + w , y + h) , (255 , 0 , 0) , 2)
+        cv2.rectangle(frame , (x , y) , (x + w , y + h) , (255 , 0 , 0) , 3)
+
+    return frame
+
+# Eyes detection
+def detect_eyes(frame):
+    global eyeClass
+
+    gray = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)
+    eye = eyeClass.detectMultiScale(gray , 1.5 , 5)
+
+    for (x , y , w , h) in eye:
+        cv2.rectangle(frame , (x , y) , (x + w , y + h) , (0 , 255 , 0) , 3)
 
     return frame
  
@@ -53,6 +67,8 @@ def gen_frames():  # Generate frames from camera
         if success:
             if(face):                
                 frame= detect_face(frame)
+            if(eyes):                
+                frame= detect_eyes(frame)
             if(grey):
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             if(neg):
@@ -104,6 +120,11 @@ def tasks():
             face=not face 
             if(face):
                 time.sleep(4)   
+        elif  request.form.get('eyes') == 'Eyes Detection':
+            global eyes
+            eyes=not eyes 
+            if(eyes):
+                time.sleep(4) 
         elif  request.form.get('stop') == 'Start/Stop':
             
             if(switch==1):
