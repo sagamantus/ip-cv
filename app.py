@@ -52,7 +52,7 @@ def detect_eyes(frame):
     global eyeClass
 
     gray = cv2.cvtColor(frame , cv2.COLOR_BGR2GRAY)
-    eye = eyeClass.detectMultiScale(gray , 1.5 , 5)
+    eye = eyeClass.detectMultiScale(gray , 1.5 , 20)
 
     for (x , y , w , h) in eye:
         cv2.rectangle(frame , (x , y) , (x + w , y + h) , (0 , 255 , 0) , 3)
