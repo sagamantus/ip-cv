@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Noob Kamera</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+</head>
+
+<body class="is-dark has-background-dark">
+    <div class="container is-widescreen has-text-centered">
+        <h2 class="title is-1 has-text-light">Kamera</h2>
+        <form method="post" action="{{ url_for('tasks') }}">
+            <input class="button is-white is-outlined" type="submit" value="Start/Stop" name="stop" />
+            <input class="button is-white is-outlined" type="submit" value="Capture" name="click" />
+            <input class="button is-white is-outlined" type="submit" value="Grey" name="grey" />
+            <input class="button is-white is-outlined" type="submit" value="Negative" name="neg" />
+            <input class="button is-white is-outlined" type="submit" value="Face Detection" name="face" />
+            <input class="button is-white is-outlined" type="submit" value="Record" name="rec" />
+        </form>
+        <br />
+        <img src="{{ url_for('video_feed') }}" height="80%" />
+        <div class="container is-half has-text-light">
+            <h3 class="title is-3 has-text-light">Instructions:</h3>
+            <table class="table has-text-light has-background-dark" style="margin-left:auto; margin-right:auto;">
+                <tbody>
+                    <tr>
+                        <td>Stop/Start</td>
+                        <td>Toggle between stop or start live streaming.</td>
+                    </tr>
+                    <tr>
+                        <td>Capture</td>
+                        <td>Take still-shot and save in the 'shots' directory.</td>
+                    </tr>
+                    <tr>
+                        <td>Grey</td>
+                        <td>Toggle between grayscale and RGB output.</td>
+                    </tr>
+                    <tr>
+                        <td>Negative</td>
+                        <td>Toggle between negative and RGB output.</td>
+                    </tr>
+                    <tr>
+                        <td>Face Detection</td>
+                        <td>Toggle face detection.</td>
+                    </tr>
+                    <tr>
+                        <td>Record</td>
+                        <td>Toggle between starting and stopping video recording</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
